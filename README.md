@@ -30,19 +30,28 @@ Aplikasi berbasis web untuk absensi harian sopir armada pengangkutan, dengan fit
 
 ## 📁 STRUKTUR FOLDER
 absensi-sopir-armada/
-├── assets/ → CSS (kosong — inline CSS di header)
-├── config/ → Konfigurasi database (auto-generated)
-├── includes/ → Komponen header, footer, fungsi
-├── install.php → ✅ Installer otomatis
-├── login.php → Login sopir
-├── admin_login.php → Login admin
-├── index.php → Dashboard sopir
-├── absen.php → Proses absen
-├── kelola_tujuan.php → Kelola dropdown tujuan
-├── kelola_gaji.php → Atur gaji AMT 1 & AMT 2
-├── tambah_sopir.php → Tambah sopir baru
-├── export_gaji.php → Export Excel
-└── README.md → Dokumentasi ini
+├── assets/css/style.css          ← KOSONG (tidak perlu dibuat)
+├── config/database.php           ← AKAN DIBUAT OTOMATIS OLEH INSTALLER
+├── includes/
+│   ├── header.php
+│   ├── footer.php
+│   └── functions.php
+├── install.php                   ← COPY PERTAMA — INSTALLER
+├── login.php
+├── admin_login.php
+├── index.php
+├── absen.php
+├── logout.php
+├── weekly_report.php
+├── monthly_report.php
+├── admin_dashboard.php
+├── kelola_gaji.php
+├── kelola_tujuan.php             ← BARU — UNTUK KELOLA DROPDOWN
+├── tambah_sopir.php
+├── hapus_sopir.php
+├── export_gaji.php
+├── autoload.php
+└── README.md                     ← COPY TERAKHIR — DOKUMENTASI
 
 ---
 
