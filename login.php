@@ -128,14 +128,22 @@ if ($_POST) {
         .links a:hover {
             text-decoration: underline;
         }
-        .error {
-            background: #fee;
-            color: #c00;
+        .message {
             padding: 15px;
             border-radius: 10px;
             margin-bottom: 20px;
-            border: 1px solid #fcc;
             font-size: 14px;
+            font-weight: 500;
+        }
+        .success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
         }
         @media (max-width: 480px) {
             .login-container {
@@ -152,9 +160,15 @@ if ($_POST) {
     <div class="login-container">
         <h2>🔐 Login Sopir</h2>
 
+        <?php if (isset($_GET['logout']) && $_GET['logout'] == 1): ?>
+            <div class="message success">
+                ✅ Anda telah berhasil logout.
+            </div>
+        <?php endif; ?>
+
         <?php if ($error): ?>
-            <div class="error">
-                <?= $error ?>
+            <div class="message error">
+                ❌ <?= $error ?>
             </div>
         <?php endif; ?>
 
