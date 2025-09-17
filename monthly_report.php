@@ -86,6 +86,7 @@ $labels = array_slice($labels, 0, count($weeks)); // Sesuaikan jumlah minggu
         </select>
     </form>
 
+    <!-- ✅ BARU: TAMBAHKAN TOTAL GAJI DI HEADER -->
     <div class="stats-grid">
         <div class="stat-card">
             <h3>🗓️ Bulan</h3>
