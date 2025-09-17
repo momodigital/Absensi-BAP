@@ -30,28 +30,32 @@ Aplikasi berbasis web untuk absensi harian sopir armada pengangkutan, dengan fit
 
 ## 📁 STRUKTUR FOLDER
 absensi-sopir-armada/
-├── assets/css/style.css          ← KOSONG (tidak perlu dibuat)
-├── config/database.php           ← AKAN DIBUAT OTOMATIS OLEH INSTALLER
-├── includes/
-│   ├── header.php
-│   ├── footer.php
-│   └── functions.php
-├── install.php                   ← COPY PERTAMA — INSTALLER
-├── login.php
-├── admin_login.php
-├── index.php
-├── absen.php
-├── logout.php
-├── weekly_report.php
-├── monthly_report.php
-├── admin_dashboard.php
-├── kelola_gaji.php
-├── kelola_tujuan.php             ← BARU — UNTUK KELOLA DROPDOWN
-├── tambah_sopir.php
-├── hapus_sopir.php
-├── export_gaji.php
-├── autoload.php
-└── README.md                     ← COPY TERAKHIR — DOKUMENTASI
++-- PhpSpreadsheet/              ? Library Excel (manual, hasil download GitHub)
++-- assets/
+¦   +-- css/
+¦       +-- style.css            ? CSS utama (responsive & modern)
++-- config/
+¦   +-- database.php             ? Koneksi database (dibuat otomatis oleh installer)
++-- includes/
+¦   +-- header.php               ? Header template (panggil CSS & JS)
+¦   +-- footer.php               ? Footer template
+¦   +-- functions.php            ? Fungsi bantu (hitung gaji, dll)
++-- install.php                  ? Installer otomatis (jalankan sekali)
++-- login.php                    ? Login untuk sopir
++-- admin_login.php              ? Login khusus admin
++-- logout.php                   ? Logout (hancurkan session)
++-- index.php                    ? Dashboard sopir (absen + pilih tujuan)
++-- absen.php                    ? Proses absen (check-in/check-out)
++-- weekly_report.php            ? Laporan mingguan (grafik + tabel)
++-- monthly_report.php           ? Laporan bulanan (grafik + tabel)
++-- admin_dashboard.php          ? Dashboard admin (statistik & shortcut)
++-- kelola_gaji.php              ? Kelola gaji dasar AMT 1 & AMT 2
++-- kelola_tujuan.php            ? Kelola daftar tujuan (dropdown)
++-- tambah_sopir.php             ? Tambah sopir baru
++-- hapus_sopir.php              ? Hapus sopir (termasuk data absensi)
++-- export_gaji.php              ? Export rekap gaji ke Excel (.xlsx)
++-- autoload.php                 ? Autoloader manual untuk PhpSpreadsheet
++-- README.md                    ? Dokumentasi lengkap (instalasi, fitur, struktur)
 
 ---
 
