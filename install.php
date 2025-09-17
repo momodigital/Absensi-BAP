@@ -32,7 +32,6 @@ if ($_POST && isset($_POST['db_host'])) {
             $pdo->exec("CREATE DATABASE IF NOT EXISTS `$db_name` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
             $pdo->exec("USE `$db_name`");
 
-            // Tabel users
             $pdo->exec("
                 CREATE TABLE IF NOT EXISTS `users` (
                     `id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -45,7 +44,6 @@ if ($_POST && isset($_POST['db_host'])) {
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
             ");
 
-            // Tabel attendance
             $pdo->exec("
                 CREATE TABLE IF NOT EXISTS `attendance` (
                     `id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -61,7 +59,6 @@ if ($_POST && isset($_POST['db_host'])) {
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
             ");
 
-            // Tabel destinations
             $pdo->exec("
                 CREATE TABLE IF NOT EXISTS `destinations` (
                     `id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -70,7 +67,6 @@ if ($_POST && isset($_POST['db_host'])) {
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
             ");
 
-            // Insert contoh tujuan
             $pdo->exec("INSERT IGNORE INTO destinations (name) VALUES 
                 ('Surabaya - Gresik PP'),
                 ('Surabaya - Sidoarjo PP'),
@@ -78,7 +74,6 @@ if ($_POST && isset($_POST['db_host'])) {
                 ('Surabaya - Mojokerto PP'),
                 ('Dalam Kota Surabaya')");
 
-            // Tabel settings
             $pdo->exec("
                 CREATE TABLE IF NOT EXISTS `settings` (
                     `name` VARCHAR(100) PRIMARY KEY,
@@ -86,11 +81,9 @@ if ($_POST && isset($_POST['db_host'])) {
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
             ");
 
-            // Insert default gaji AMT
             $pdo->prepare("INSERT IGNORE INTO settings (name, value) VALUES (?, ?)")->execute(['gaji_AMT 1', '250000']);
             $pdo->prepare("INSERT IGNORE INTO settings (name, value) VALUES (?, ?)")->execute(['gaji_AMT 2', '200000']);
 
-            // Insert admin
             $hashedPassword = password_hash($admin_password, PASSWORD_DEFAULT);
             $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
             $stmt->execute([$admin_email]);
@@ -105,7 +98,6 @@ if ($_POST && isset($_POST['db_host'])) {
                 ]);
             }
 
-            // Buat config
             $configContent = "<?php\n\$host = '" . addslashes($db_host) . "';\n";
             $configContent .= "\$dbname = '" . addslashes($db_name) . "';\n";
             $configContent .= "\$username = '" . addslashes($db_user) . "';\n";
