@@ -26,6 +26,21 @@ $hasCheckedOut = $todayRecord && $todayRecord['check_out'];
 $stmt = $pdo->prepare("SELECT id, name FROM destinations ORDER BY name ASC");
 $stmt->execute();
 $destinations = $stmt->fetchAll();
+
+// Hitung gaji bulan ini
+$salaryInfo = calculateMonthlySalary($pdo, $user_id);
+
+// Ambil riwayat gaji bulan ini (untuk tabel detail)
+$stmt = $pdo->prepare("
+    SELECT date, destination, daily_salary, status, check_in, check_out
+    FROM attendance 
+    WHERE user_id = ? 
+      AND YEAR(date) = YEAR(CURDATE()) 
+      AND MONTH(date) = MONTH(CURDATE())
+    ORDER BY date DESC
+");
+$stmt->execute([$user_id]);
+$gajiHistory = $stmt->fetchAll();
 ?>
 
 <?php include 'includes/header.php'; ?>
@@ -77,22 +92,52 @@ $destinations = $stmt->fetchAll();
     <?php endif; ?>
 </div>
 
-<?php
-$salaryInfo = calculateMonthlySalary($pdo, $user_id);
-?>
-
+<!-- ✅ BARU: TAMPILKAN TOTAL GAJI BULAN INI -->
 <div class="card">
-    <h3>💰 Rekap Gaji Bulan Ini</h3>
+    <h3>💰 Total Gaji Bulan Ini</h3>
     <div class="stats-grid">
         <div class="stat-card">
             <h3>Hari Kerja</h3>
-            <div class="value"><?= $salaryInfo['working_days'] ?></div>
+            <div class="value"><?= $salaryInfo['working_days'] ?> hari</div>
         </div>
         <div class="stat-card">
             <h3>Total Gaji</h3>
             <div class="value">Rp <?= number_format($salaryInfo['total_salary'], 0, ',', '.') ?></div>
         </div>
     </div>
+</div>
+
+<!-- ✅ BARU: TABEL RIWAYAT GAJI BULAN INI -->
+<div class="card">
+    <h3>📋 Riwayat Gaji Bulan Ini</h3>
+    <?php if (count($gajiHistory) > 0): ?>
+        <table>
+            <tr>
+                <th>Tanggal</th>
+                <th>Tujuan</th>
+                <th>Status</th>
+                <th>Gaji</th>
+            </tr>
+            <?php foreach ($gajiHistory as $row): ?>
+            <tr>
+                <td><?= date('d M', strtotime($row['date'])) ?></td>
+                <td><?= htmlspecialchars($row['destination']) ?></td>
+                <td>
+                    <?php if ($row['status'] == 'present'): ?>
+                        <span class="badge badge-success">Hadir</span>
+                    <?php elseif ($row['status'] == 'late'): ?>
+                        <span class="badge badge-warning">Terlambat</span>
+                    <?php else: ?>
+                        <span class="badge badge-danger">Absen</span>
+                    <?php endif; ?>
+                </td>
+                <td>Rp <?= number_format($row['daily_salary'], 0, ',', '.') ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php else: ?>
+        <p style="text-align:center; padding:20px; color:#64748b;">Belum ada riwayat gaji bulan ini.</p>
+    <?php endif; ?>
 </div>
 
 <div style="text-align:center; margin:24px 0;">
